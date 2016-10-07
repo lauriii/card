@@ -1,0 +1,8 @@
+name: Card demo
+type: module
+description: 'Demonstrate using theme system in a re-usable way by creating a card component.'
+core: 8.x
+
+dependencies:
+  - node
+  - user

@@ -1,0 +1,7 @@
+card.demo:
+  path: '/card-list'
+  defaults:
+    _controller: '\Drupal\card\CardDemoController::build'
+    _title: 'Card demo'
+  requirements:
+    _permission: 'access content'

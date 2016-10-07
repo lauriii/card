@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Defines hooks for card module.
+ */
+
+use Drupal\node\NodeInterface;
+use Drupal\card\Element\Card;
+
+function card_theme() {
+  $items['card'] = [
+    'variables' => [
+      'title' => '',
+      'summary' => '',
+      'link_text' => '',
+      'link_url' => '',
+    ],
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ *
+ * This should be done in a theme.
+ */
+function card_element_info_alter(array &$info) {
+  if (isset($info['node'])) {
+    $info['node']['#pre_render'][] = 'card_node_pre_render';
+  }
+}
+
+/**
+ * #pre_render callback: sets correct theme hook for node.
+ *
+ * This should be done in a theme.
+ */
+function card_node_pre_render($element) {
+  if ($element['#view_mode'] == 'teaser') {
+    $element['#theme'] = 'card';
+    $element = Card::preRenderNode($element);
+  }
+
+  return $element;
+}

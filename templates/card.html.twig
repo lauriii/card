@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Markup for file component.
+ *
+ * Variables available:
+ * - title: The title for the card.
+ * - summary: The summary text for the card.
+ * - link_text: The link text for the card.
+ * - link_url: The URL where card should be linked to.
+ *
+ * @ingroup themable
+ */
+#}
+<div class="card">
+  <h2 class="card__title">{{ title }}</h2>
+  <div class="card__summary">{{ summary }}</div>
+  <a href="{{ link_url }}" class="card__link">{{ link_text }}</a>
+</div>
