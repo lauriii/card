@@ -5,8 +5,10 @@
  * Defines hooks for card module.
  */
 
-use Drupal\node\NodeInterface;
 use Drupal\card\Element\Card;
+use Drupal\file\Entity\File;
+use Drupal\node\NodeInterface;
+use Drupal\image\Entity\ImageStyle;
 
 function card_theme() {
   $items['card'] = [
@@ -17,6 +19,14 @@ function card_theme() {
       'link_url' => '',
     ],
   ];
+
+  // This could be done in a theme.
+  $items['card__image'] = array_merge_recursive([
+    'variables' => [
+      'image_url' => '',
+      'image_alt' => ''
+    ],
+  ], $items['card']);
 
   return $items;
 }
@@ -41,6 +51,16 @@ function card_node_pre_render($element) {
   if ($element['#view_mode'] == 'teaser') {
     $element['#theme'] = 'card';
     $element = Card::preRenderNode($element);
+
+    // Adding variation of the card that has an extra variable.
+    $entity = $element['#entity'];
+    if ($entity instanceof NodeInterface && $entity->hasField('field_image') && !$entity->get('field_image')->isEmpty()) {
+      $element['#theme'] = 'card__image';
+      $field_content = $entity->get('field_image')->first()->getValue();
+      $file_uri = File::load($field_content['target_id'])->getFileUri();
+      $element['#image_url'] = ImageStyle::load('medium')->buildUrl($file_uri);
+      $element['#image_alt'] = $field_content['alt'];
+    }
   }
 
   return $element;

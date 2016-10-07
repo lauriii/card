@@ -13,7 +13,9 @@
  */
 #}
 <div class="card">
-  <h2 class="card__title">{{ title }}</h2>
-  <div class="card__summary">{{ summary }}</div>
-  <a href="{{ link_url }}" class="card__link">{{ link_text }}</a>
+  {% block content %}
+    <h2 class="card__title">{{ title }}</h2>
+    <div class="card__summary">{{ summary }}</div>
+    <a href="{{ link_url }}" class="card__link">{{ link_text }}</a>
+  {% endblock %}
 </div>

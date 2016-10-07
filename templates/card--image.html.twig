@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Card component with image.
+ *
+ * Additional variables compared to parent template:
+ * - image_url: The url of the image.
+ * - image_alt: The alt text of the image.
+ *
+ * @see card.html.twig
+ */
+#}
+{% extends "@card/card.html.twig" %}
+{% block content %}
+  <img src="{{ image_url }}" alt="{{ image_alt }}" />
+  {{ parent() }}
+{% endblock %}
